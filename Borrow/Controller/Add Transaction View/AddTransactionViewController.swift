@@ -88,8 +88,10 @@ class AddTransactionViewController: FormViewController {
     }
     
     func finishTransaction() {
+        // Retrieves all the values
         let valuesDictionary = form.values()
         
+        // Retrieves the other party
         let party = valuesDictionary["party"] as? String
         // should also check if its a valid username
         if (party == nil || party == "") {
@@ -97,22 +99,59 @@ class AddTransactionViewController: FormViewController {
             return
         }
         
+        // Retrieves the item description
         let item = valuesDictionary["item"] as? String
         if (item == nil || item == "") {
             alertBadDescription()
             return
         }
         
+        // Retrieves the notification preference
         let notif = valuesDictionary["notifs"] as? String
         if (notif == nil) {
             alertBadNotifications()
             return
         }
         
-        databaseRef.child("transactions").child(user!.uid).setValue(["party": party])
-        databaseRef.child("transactions").child(user!.uid).setValue(["item": item])
-        databaseRef.child("transactions").child(user!.uid).setValue(["notifs": notif])
+        // Retrieves date and sets date formatting
+        let date = valuesDictionary["return date"] as? Date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        
+        let time = valuesDictionary["return time"] as? Date
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        timeFormatter.amSymbol = "AM"
+        timeFormatter.pmSymbol = "PM"
+        
+        let completeDate = "\(dateFormatter.string(from: date!)) at \(timeFormatter.string(from: time!))"
+        
+        // Retrieves your role
+        let role = valuesDictionary["roles"] as? String
+        var borrower = ""
+        var lender = ""
+        databaseRef.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let name = value?["name"] as? String ?? ""
+            if role == "Borrower" {
+                borrower = name
+                lender = party!
+            } else {
+                lender = name
+                borrower = party!
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
+        // Inserts to database
+        let newRef = databaseRef.child("transactions").childByAutoId()
+        newRef.setValue(["lender": lender, "borrower": borrower, "item": item, "return_by": completeDate, "notifs": notif])
+        databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
 
+        // Switch to Feed View Controller
         performSegue(withIdentifier: "backToFeed", sender: nil)
     }
     

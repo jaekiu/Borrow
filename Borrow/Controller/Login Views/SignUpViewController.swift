@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
+    var ref: DatabaseReference!
     
     @IBAction func signInButton(_ sender: UIButton) {
         performSegue(withIdentifier: "performSignIn", sender: sender)
@@ -36,6 +37,7 @@ class SignUpViewController: UIViewController {
         signUpButton.layer.borderColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor
         
         drawRectangleBg()
+        ref = Database.database().reference()
         
     }
     
@@ -69,8 +71,7 @@ class SignUpViewController: UIViewController {
         } else {
             Auth.auth().createUser(withEmail: email, password: pass) { authResult, error in
                 if let user = authResult?.user {
-                    databaseRef.child("users").child(user.uid).setValue(["name": name])
-                    databaseRef.child("users").child(user.uid).setValue(["username": username])
+                    databaseRef.child("users").child(user.uid).setValue(["name": name, "username": username])
 
                     self.performSegue(withIdentifier: "signUpToFeed", sender: self)
                 } else {
