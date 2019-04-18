@@ -6,6 +6,11 @@ target 'Borrow' do
   use_frameworks!
 
   # Pods for Borrow
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.3'
+use_frameworks!
+
+pod 'Eureka'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 

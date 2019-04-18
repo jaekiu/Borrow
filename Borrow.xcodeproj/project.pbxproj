@@ -15,6 +15,11 @@
 		8C2719C2225F09D40060EA36 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2719C1225F09D40060EA36 /* SignInViewController.swift */; };
 		8C2719C8225F11B10060EA36 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C2719C7225F11B00060EA36 /* GoogleService-Info.plist */; };
 		8C2719CA225F17CF0060EA36 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2719C9225F17CF0060EA36 /* FeedViewController.swift */; };
+		8C39B37122672EFA0075666B /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B37022672EFA0075666B /* FeedTableViewCell.swift */; };
+		8C39B3732267E8350075666B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3722267E8350075666B /* Utils.swift */; };
+		8C39B3752267F5840075666B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3742267F5840075666B /* Transaction.swift */; };
+		8C39B3772267F96B0075666B /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3762267F96B0075666B /* AddTransactionViewController.swift */; };
+		8C39B37B226824530075666B /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B37A226824530075666B /* DetailsViewController.swift */; };
 		D4791DBD7393803283C842C9 /* Pods_Borrow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +36,11 @@
 		8C2719C1225F09D40060EA36 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8C2719C7225F11B00060EA36 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8C2719C9225F17CF0060EA36 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		8C39B37022672EFA0075666B /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		8C39B3722267E8350075666B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8C39B3742267F5840075666B /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		8C39B3762267F96B0075666B /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
+		8C39B37A226824530075666B /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Borrow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,6 +85,7 @@
 		8C2719AE225ED2610060EA36 /* Borrow */ = {
 			isa = PBXGroup;
 			children = (
+				8C39B37922681D5D0075666B /* Helpers */,
 				8C39B36C22671C4F0075666B /* Model */,
 				8C39B36D22671C550075666B /* View */,
 				8C39B36E22671C5D0075666B /* Controller */,
@@ -89,6 +100,7 @@
 		8C39B36C22671C4F0075666B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8C39B3742267F5840075666B /* Transaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -105,19 +117,54 @@
 		8C39B36E22671C5D0075666B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8C39B36F22671D250075666B /* FeedViewer */,
-				8C2719C1225F09D40060EA36 /* SignInViewController.swift */,
-				8C2719B1225ED2610060EA36 /* SignUpViewController.swift */,
+				8C39B37D226850D40075666B /* Details View */,
+				8C39B37C226850BB0075666B /* Add Transaction View */,
+				8C39B3782267F9800075666B /* Login Views */,
+				8C39B36F22671D250075666B /* Feed View */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		8C39B36F22671D250075666B /* FeedViewer */ = {
+		8C39B36F22671D250075666B /* Feed View */ = {
 			isa = PBXGroup;
 			children = (
 				8C2719C9225F17CF0060EA36 /* FeedViewController.swift */,
+				8C39B37022672EFA0075666B /* FeedTableViewCell.swift */,
 			);
-			path = FeedViewer;
+			path = "Feed View";
+			sourceTree = "<group>";
+		};
+		8C39B3782267F9800075666B /* Login Views */ = {
+			isa = PBXGroup;
+			children = (
+				8C2719C1225F09D40060EA36 /* SignInViewController.swift */,
+				8C2719B1225ED2610060EA36 /* SignUpViewController.swift */,
+			);
+			path = "Login Views";
+			sourceTree = "<group>";
+		};
+		8C39B37922681D5D0075666B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8C39B3722267E8350075666B /* Utils.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		8C39B37C226850BB0075666B /* Add Transaction View */ = {
+			isa = PBXGroup;
+			children = (
+				8C39B3762267F96B0075666B /* AddTransactionViewController.swift */,
+			);
+			path = "Add Transaction View";
+			sourceTree = "<group>";
+		};
+		8C39B37D226850D40075666B /* Details View */ = {
+			isa = PBXGroup;
+			children = (
+				8C39B37A226824530075666B /* DetailsViewController.swift */,
+			);
+			path = "Details View";
 			sourceTree = "<group>";
 		};
 		C2A531B2B814732337C9B615 /* Pods */ = {
@@ -208,6 +255,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Borrow/Pods-Borrow-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -216,6 +264,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -254,10 +303,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C39B3752267F5840075666B /* Transaction.swift in Sources */,
 				8C2719B2225ED2610060EA36 /* SignUpViewController.swift in Sources */,
+				8C39B37B226824530075666B /* DetailsViewController.swift in Sources */,
 				8C2719B0225ED2610060EA36 /* AppDelegate.swift in Sources */,
 				8C2719CA225F17CF0060EA36 /* FeedViewController.swift in Sources */,
 				8C2719C2225F09D40060EA36 /* SignInViewController.swift in Sources */,
+				8C39B37122672EFA0075666B /* FeedTableViewCell.swift in Sources */,
+				8C39B3732267E8350075666B /* Utils.swift in Sources */,
+				8C39B3772267F96B0075666B /* AddTransactionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

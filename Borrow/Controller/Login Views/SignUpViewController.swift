@@ -11,13 +11,10 @@ import Firebase
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
-
-
     
     @IBAction func signInButton(_ sender: UIButton) {
         performSegue(withIdentifier: "performSignIn", sender: sender)
     }
-    // performSegue(withIdentifier: "performSignIn", sender: sender)
     
     @IBOutlet weak var signUpText: UILabel!
     @IBOutlet weak var signUpButton: UIButton!

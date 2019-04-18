@@ -29,6 +29,22 @@ class SignInViewController: UIViewController {
         signInButton.layer.borderColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor
         
         drawRectangleBg()
+        checkForAutoLogin()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func drawRectangleBg() {
@@ -50,10 +66,7 @@ class SignInViewController: UIViewController {
 
     func signInUser(email: String, pass: String) {
         
-        if email == nil || pass == nil {
-            alertNoText()
-            return
-        } else if email == "" || pass == "" {
+        if email == "" || pass == "" {
             alertNoText()
             return
         } else {
@@ -63,11 +76,25 @@ class SignInViewController: UIViewController {
                     strongSelf.alertFailedSignIn()
                     return
                 }
-                strongSelf.performSegue(withIdentifier: "signInToFeed", sender: self)
+                strongSelf.goToFeed()
             }
         }
     }
     
+    func checkForAutoLogin() {
+        if Auth.auth().currentUser != nil {
+            // User is logged in
+            goToFeed()
+        } else {
+            // User is not logged in
+        }
+    }
+    
+    func goToFeed() {
+        performSegue(withIdentifier: "signInToFeed", sender: self)
+    }
+    
+    // ALERTS --------
     
     func alertFailedSignIn() {
         let alertController = UIAlertController(title: "Sign In Failed", message:
