@@ -69,6 +69,9 @@ class SignUpViewController: UIViewController {
         } else {
             Auth.auth().createUser(withEmail: email, password: pass) { authResult, error in
                 if let user = authResult?.user {
+                    databaseRef.child("users").child(user.uid).setValue(["name": name])
+                    databaseRef.child("users").child(user.uid).setValue(["username": username])
+
                     self.performSegue(withIdentifier: "signUpToFeed", sender: self)
                 } else {
                     self.alertFailedSignUp()

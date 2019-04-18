@@ -11,7 +11,10 @@ platform :ios, '9.3'
 use_frameworks!
 
 pod 'Eureka'
+pod 'ImageRow'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Storage'
+pod 'Firebase/Database'
 
 end

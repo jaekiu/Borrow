@@ -8,6 +8,7 @@
 
 import UIKit
 import Eureka
+import ImageRow
 
 class AddTransactionViewController: FormViewController {
 
@@ -20,35 +21,58 @@ class AddTransactionViewController: FormViewController {
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = nil
+        navigationController?.navigationBar.tintColor = nil
         let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView
         if statusBar?.responds(to: #selector(setter: UIView.backgroundColor)) ?? false {
             statusBar?.backgroundColor = nil
         }
         
         // Eureka Form
-        form +++ Section("Other Party")
-            <<< TextAreaRow(){
+        form
+            +++ Section("Select Your Role")
+            <<< SegmentedRow<String>("roles"){
+                $0.options = ["Borrower", "Lender"]
+                $0.value = "Borrower"
+            }
+            
+            +++ Section("Other Party")
+            <<< TextAreaRow("party"){
                 $0.placeholder = "Username"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 23)
             }
-//            <<< TextRow(){ row in
-//                row.title = "Other Party"
-//                row.placeholder = "Username"
-//            }
             +++ Section("Item")
-            <<< TextAreaRow(){
+            <<< TextAreaRow("item"){
                 $0.placeholder = "Description of Item"
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 150)
             }
             +++ Section("Settings")
-            <<< DateRow(){
+            <<< DateRow("return date"){
                 $0.title = "Return Date"
                 $0.value = Date(timeIntervalSinceReferenceDate: 0)
             }
-            <<< PushRow<String>() { row in
+            <<< TimeRow("return time"){
+                $0.title = "Return Time"
+                let formatter = DateFormatter()
+                formatter.dateFormat = "h:mm a"
+                formatter.amSymbol = "AM"
+                formatter.pmSymbol = "PM"
+                $0.dateFormatter = formatter
+                $0.value = Date()
+            }
+            <<< PushRow<String>("notifs") { row in
                 row.title = "Notifications"
                 row.options = ["Every Month", "Every Week", "Every Day", "Every 3 Hours", "Every Hour"]
             }
+            +++ Section("Condition of Item") {
+                $0.tag = "lenderImg"
+                $0.hidden = "$roles != 'Lender'"
+            }
+            <<< ImageRow("img") {
+                $0.title = "Attachment"
+                $0.sourceTypes = [.PhotoLibrary, .SavedPhotosAlbum, .Camera]
+                $0.clearAction = .yes(style: .destructive)
+                
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -60,11 +84,61 @@ class AddTransactionViewController: FormViewController {
     }
     
     @IBAction func saveTransaction(_ sender: Any) {
-        performSegue(withIdentifier: "backToFeed", sender: sender)
+        finishTransaction()
     }
     
     func finishTransaction() {
+        let valuesDictionary = form.values()
         
+        let party = valuesDictionary["party"] as? String
+        // should also check if its a valid username
+        if (party == nil || party == "") {
+            alertBadParty()
+            return
+        }
+        
+        let item = valuesDictionary["item"] as? String
+        if (item == nil || item == "") {
+            alertBadDescription()
+            return
+        }
+        
+        let notif = valuesDictionary["notifs"] as? String
+        if (notif == nil) {
+            alertBadNotifications()
+            return
+        }
+        
+        databaseRef.child("transactions").child(user!.uid).setValue(["party": party])
+        databaseRef.child("transactions").child(user!.uid).setValue(["item": item])
+        databaseRef.child("transactions").child(user!.uid).setValue(["notifs": notif])
+
+        performSegue(withIdentifier: "backToFeed", sender: nil)
+    }
+    
+    
+    
+    /** -------- ALERTS --------- */
+    
+    func alertBadParty() {
+        let alertController = UIAlertController(title: "Error!", message:
+            "Please input a valid username.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertBadDescription() {
+        let alertController = UIAlertController(title: "Error!", message:
+            "Please input a valid item description.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertBadNotifications() {
+        let alertController = UIAlertController(title: "Error!", message:
+            "Please select a notification preference.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func alertCancel() {
