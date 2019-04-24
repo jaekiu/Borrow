@@ -9,6 +9,7 @@
 import UIKit
 import Eureka
 import ImageRow
+import FirebaseDatabase
 
 class AddTransactionViewController: FormViewController {
 
@@ -137,15 +138,14 @@ class AddTransactionViewController: FormViewController {
             // Get user value
             let value = snapshot.value as? NSDictionary
             let username = value?["username"] as? String ?? ""
-            let name = value?["name"] as? String ?? ""
             if username.lowercased() == party?.lowercased() {
                 self.alertBadParty()
                 return
             } else if role == "Borrower" {
-                borrower = name
+                borrower = username
                 lender = party!
             } else {
-                lender = name
+                lender = username
                 borrower = party!
                 if image == nil {
                     self.alertBadImg()
@@ -163,8 +163,18 @@ class AddTransactionViewController: FormViewController {
             } else {
                 // Inserts to database
                 let newRef = databaseRef.child("transactions").childByAutoId()
-                newRef.setValue(["lender": lender, "borrower": borrower, "item": item, "return_by": completeDate, "notifs": notif])
+                newRef.setValue(["lender": lender.lowercased(), "borrower": borrower.lowercased(), "item": item, "return_by": completeDate, "notifs": notif])
                 databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
+                
+                // Get uid of other party
+                var partyProperties = [String: String]()
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    let key = snap.key
+                    let value = snap.value as! String
+                    partyProperties[key] = value
+                }
+            databaseRef.child("users").child(partyProperties["uid"]!).updateChildValues(["transactions": [newRef.key]])
                 
                 // Switch to Feed View Controller
                 self.performSegue(withIdentifier: "backToFeed", sender: nil)

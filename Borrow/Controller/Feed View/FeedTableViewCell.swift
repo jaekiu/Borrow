@@ -12,7 +12,8 @@ class FeedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var timeText: UILabel!
-    @IBOutlet weak var borrowingText: UILabel!
+    @IBOutlet weak var borrower: UILabel!
+    @IBOutlet weak var lender: UILabel!
     @IBOutlet weak var item: UILabel!
     
     override func awakeFromNib() {

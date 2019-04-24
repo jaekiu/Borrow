@@ -78,7 +78,7 @@ class SignUpViewController: UIViewController {
                         if let user = authResult?.user {
                             databaseRef.child("users").child(user.uid).setValue(["name": name, "username": username.lowercased()])
                             // Updates usernames database
-                            databaseRef.child("usernames").child(username.lowercased()).setValue(["uid": user.uid])
+                            databaseRef.child("usernames").child(username.lowercased()).setValue(["uid": user.uid, "name": name])
                             // let childUpdates = [username: true]
                             // databaseRef.child("usernames").updateChildValues(childUpdates)
                             

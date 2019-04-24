@@ -25,18 +25,27 @@ class Transaction {
     var item: String
     
     /** Represents the return date and time. */
-    var date: Date
+    var date: Date?
     
     /** Represents the notification preference. */
     var notifications: String
     
-    init(id: String, borrower: String, lender: String, isBorrower: Bool, item: String, date: Date, notifications: String) {
+    init(id: String, borrower: String, lender: String, isBorrower: Bool, item: String, date: String, notifications: String) {
         self.id = id
         self.borrower = borrower
         self.lender = lender
         self.isBorrower = isBorrower
         self.item = item
-        self.date = date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy at h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        
+        if let date = dateFormatter.date(from: date) {
+            self.date = date
+        }
+        
         self.notifications = notifications
     }
     
