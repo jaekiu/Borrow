@@ -29,8 +29,12 @@ class SignInViewController: UIViewController {
         signInButton.layer.borderColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor
         
         drawRectangleBg()
-        checkForAutoLogin()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkForAutoLogin()
     }
     
     override func viewWillAppear(_ animated: Bool) {

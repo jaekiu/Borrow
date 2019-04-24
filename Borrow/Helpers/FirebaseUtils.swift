@@ -17,5 +17,3 @@ let storage = Storage.storage()
 let storageRef = storage.reference()
 
 var databaseRef = Database.database().reference()
-
-

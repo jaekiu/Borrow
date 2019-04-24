@@ -69,22 +69,39 @@ class SignUpViewController: UIViewController {
             alertPassword()
             return
         } else {
-            Auth.auth().createUser(withEmail: email, password: pass) { authResult, error in
-                if let user = authResult?.user {
-                    databaseRef.child("users").child(user.uid).setValue(["name": name, "username": username])
-
-                    self.performSegue(withIdentifier: "signUpToFeed", sender: self)
-                } else {
-                    self.alertFailedSignUp()
+            databaseRef.child("usernames/\(username.lowercased())").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists(){
+                    self.alertUsername()
                     return
+                } else {
+                    Auth.auth().createUser(withEmail: email, password: pass) { authResult, error in
+                        if let user = authResult?.user {
+                            databaseRef.child("users").child(user.uid).setValue(["name": name, "username": username.lowercased()])
+                            // Updates usernames database
+                            databaseRef.child("usernames").child(username.lowercased()).setValue(["uid": user.uid])
+                            // let childUpdates = [username: true]
+                            // databaseRef.child("usernames").updateChildValues(childUpdates)
+                            
+                            self.performSegue(withIdentifier: "signUpToFeed", sender: self)
+                        } else {
+                            self.alertFailedSignUp()
+                            return
+                        }
+                    }
                 }
-                
-                
-            }
+            })
         }
     }
 
+    
+    func alertUsername() {
+        let alertController = UIAlertController(title: "Sign Up Failed", message:
+            "Username already exists.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Try Again", style: .default))
         
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func alertFailedSignUp() {
         let alertController = UIAlertController(title: "Sign Up Failed", message:
             "Sign up failed.", preferredStyle: .alert)

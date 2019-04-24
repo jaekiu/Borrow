@@ -93,7 +93,6 @@ class AddTransactionViewController: FormViewController {
         
         // Retrieves the other party
         let party = valuesDictionary["party"] as? String
-        // should also check if its a valid username
         if (party == nil || party == "") {
             alertBadParty()
             return
@@ -125,6 +124,10 @@ class AddTransactionViewController: FormViewController {
         timeFormatter.pmSymbol = "PM"
         
         let completeDate = "\(dateFormatter.string(from: date!)) at \(timeFormatter.string(from: time!))"
+
+        
+        // Retrieves image
+        let image = valuesDictionary["img"]
         
         // Retrieves your role
         let role = valuesDictionary["roles"] as? String
@@ -133,29 +136,41 @@ class AddTransactionViewController: FormViewController {
         databaseRef.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
+            let username = value?["username"] as? String ?? ""
             let name = value?["name"] as? String ?? ""
-            if role == "Borrower" {
+            if username.lowercased() == party?.lowercased() {
+                self.alertBadParty()
+                return
+            } else if role == "Borrower" {
                 borrower = name
                 lender = party!
             } else {
                 lender = name
                 borrower = party!
+                if image == nil {
+                    self.alertBadImg()
+                    return
+                }
             }
         }) { (error) in
             print(error.localizedDescription)
         }
         
-        
-        // Inserts to database
-        let newRef = databaseRef.child("transactions").childByAutoId()
-        newRef.setValue(["lender": lender, "borrower": borrower, "item": item, "return_by": completeDate, "notifs": notif])
-        databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
-
-        // Switch to Feed View Controller
-        performSegue(withIdentifier: "backToFeed", sender: nil)
+        databaseRef.child("usernames/\(party!.lowercased())").observeSingleEvent(of: .value, with: { (snapshot) in
+            if !snapshot.exists(){
+                self.alertBadParty()
+                return
+            } else {
+                // Inserts to database
+                let newRef = databaseRef.child("transactions").childByAutoId()
+                newRef.setValue(["lender": lender, "borrower": borrower, "item": item, "return_by": completeDate, "notifs": notif])
+                databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
+                
+                // Switch to Feed View Controller
+                self.performSegue(withIdentifier: "backToFeed", sender: nil)
+            }
+        })
     }
-    
-    
     
     /** -------- ALERTS --------- */
     
@@ -176,6 +191,13 @@ class AddTransactionViewController: FormViewController {
     func alertBadNotifications() {
         let alertController = UIAlertController(title: "Error!", message:
             "Please select a notification preference.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertBadImg() {
+        let alertController = UIAlertController(title: "Error!", message:
+            "Please upload a valid image.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .default))
         self.present(alertController, animated: true, completion: nil)
     }

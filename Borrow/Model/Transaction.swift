@@ -9,11 +9,17 @@
 import Foundation
 
 class Transaction {
+    /** Represents the transaction id. */
+    var id: String
+    
     /** Represents the borrower's username. */
     var borrower: String
     
     /** Represents the lender's username. */
     var lender: String
+    
+    /** Easily checks to see what role you are. */
+    var isBorrower: Bool
     
     /** Represents the item description. */
     var item: String
@@ -24,12 +30,18 @@ class Transaction {
     /** Represents the notification preference. */
     var notifications: String
     
-    init(borrower: String, lender: String, item: String, date: Date, notifications: String) {
+    init(id: String, borrower: String, lender: String, isBorrower: Bool, item: String, date: Date, notifications: String) {
+        self.id = id
         self.borrower = borrower
         self.lender = lender
+        self.isBorrower = isBorrower
         self.item = item
         self.date = date
         self.notifications = notifications
+    }
+    
+    func getId() -> String {
+        return id
     }
     
     func getBorrower() -> String {
@@ -51,5 +63,13 @@ class Transaction {
         return notifications
     }
     
+//    func formatFeedText() -> String {
+//        var subject = ""
+//        if isBorrower {
+//            subject = "You"
+//        } else {
+//            subject = borrower
+//        }
+//    }
     
 }

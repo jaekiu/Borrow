@@ -19,9 +19,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         performSegue(withIdentifier: "performAddTransactionSegue", sender: sender)
         
     }
-    let dummyDataBorrower = ["You borrowed from Sahil Sanghvi.", "Sahil Sanghvi borrowed from you."]
-    let dummyDataDesc = ["spicy spicy hot sauce", "bookz"]
-    let dummyDataTime = ["Overdue by 3 hours", "Overdue by 1 hour"]
+    
+    var dummyDataBorrower = ["You borrowed from Sahil Sanghvi.", "Sahil Sanghvi borrowed from you."]
+    var dummyDataDesc = ["spicy spicy hot sauce", "bookz"]
+    var dummyDataTime = ["Overdue by 3 hours", "Overdue by 1 hour"]
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
