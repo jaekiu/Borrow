@@ -72,13 +72,8 @@ class Transaction {
         return notifications
     }
     
-//    func formatFeedText() -> String {
-//        var subject = ""
-//        if isBorrower {
-//            subject = "You"
-//        } else {
-//            subject = borrower
-//        }
-//    }
+    func getIsBorrower() -> Bool {
+        return isBorrower
+    }
     
 }

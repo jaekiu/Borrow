@@ -172,8 +172,19 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell {
             let transaction = transactions[indexPath.item]
             cell.item.text = transaction.getItem()
-            cell.borrower.text = transaction.getBorrower()
-            cell.lender.text = transaction.getLender()
+            let isBorrower = transaction.getIsBorrower()
+            if isBorrower == true {
+                cell.borrower.text = "You"
+                cell.borrower.textColor = .black
+                cell.lender.text = transaction.getLender()
+                cell.lender.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)
+                
+            } else {
+                cell.borrower.text = transaction.getBorrower()
+                cell.borrower.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)
+                cell.lender.text = "you"
+                cell.lender.textColor = .black
+            }
             cell.timeText.text = "Overdue by 3 hours"
             if let url = URL(string: "https://jacquelinezhang.com/Media/innodteamphoto-2059.jpg"){
                 DispatchQueue.global().async {
@@ -217,6 +228,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     /** Handles selection of a row in the TableView. */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let transaction = transactions[indexPath.item]
+        idToView = transaction.getId()
         performSegue(withIdentifier: "performDetailsSegue", sender: nil)
     }
     
