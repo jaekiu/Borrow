@@ -20,9 +20,8 @@
 		8C39B3752267F5840075666B /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3742267F5840075666B /* Transaction.swift */; };
 		8C39B3772267F96B0075666B /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3762267F96B0075666B /* AddTransactionViewController.swift */; };
 		8C39B37B226824530075666B /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B37A226824530075666B /* DetailsViewController.swift */; };
-		8C39B385226868890075666B /* BorrowerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B384226868890075666B /* BorrowerCollectionViewCell.swift */; };
-		8C39B387226868900075666B /* LenderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B386226868900075666B /* LenderCollectionViewCell.swift */; };
 		8C39B389226932770075666B /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B388226932770075666B /* FirebaseUtils.swift */; };
+		8C5BBEC9227231E0006613C3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5BBEC8227231E0006613C3 /* User.swift */; };
 		D4791DBD7393803283C842C9 /* Pods_Borrow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,9 +43,8 @@
 		8C39B3742267F5840075666B /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		8C39B3762267F96B0075666B /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
 		8C39B37A226824530075666B /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		8C39B384226868890075666B /* BorrowerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowerCollectionViewCell.swift; sourceTree = "<group>"; };
-		8C39B386226868900075666B /* LenderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LenderCollectionViewCell.swift; sourceTree = "<group>"; };
 		8C39B388226932770075666B /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
+		8C5BBEC8227231E0006613C3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Borrow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -107,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				8C39B3742267F5840075666B /* Transaction.swift */,
+				8C5BBEC8227231E0006613C3 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -170,8 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				8C39B37A226824530075666B /* DetailsViewController.swift */,
-				8C39B384226868890075666B /* BorrowerCollectionViewCell.swift */,
-				8C39B386226868900075666B /* LenderCollectionViewCell.swift */,
 			);
 			path = "Details View";
 			sourceTree = "<group>";
@@ -316,18 +313,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C5BBEC9227231E0006613C3 /* User.swift in Sources */,
 				8C39B389226932770075666B /* FirebaseUtils.swift in Sources */,
 				8C39B3752267F5840075666B /* Transaction.swift in Sources */,
 				8C2719B2225ED2610060EA36 /* SignUpViewController.swift in Sources */,
 				8C39B37B226824530075666B /* DetailsViewController.swift in Sources */,
 				8C2719B0225ED2610060EA36 /* AppDelegate.swift in Sources */,
-				8C39B385226868890075666B /* BorrowerCollectionViewCell.swift in Sources */,
 				8C2719CA225F17CF0060EA36 /* FeedViewController.swift in Sources */,
 				8C2719C2225F09D40060EA36 /* SignInViewController.swift in Sources */,
 				8C39B37122672EFA0075666B /* FeedTableViewCell.swift in Sources */,
 				8C39B3732267E8350075666B /* Utils.swift in Sources */,
 				8C39B3772267F96B0075666B /* AddTransactionViewController.swift in Sources */,
-				8C39B387226868900075666B /* LenderCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

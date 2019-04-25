@@ -10,8 +10,19 @@ import UIKit
 
 class DetailsViewController: UIViewController {
     
-    var transactionID: String?
+    
+    
+    var transaction: Transaction?
 
+    @IBOutlet weak var borrowerImg: UIImageView!
+    @IBOutlet weak var borrowerName: UILabel!
+    @IBOutlet weak var lenderImg: UIImageView!
+    @IBOutlet weak var lenderName: UILabel!
+    @IBOutlet weak var itemLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var notifLabel: UILabel!
+    @IBOutlet weak var pictureImg: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,11 +32,15 @@ class DetailsViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.tintColor = .white
-
+        
+        // UI related stuff
+        itemLabel.text = transaction?.getItem()
+        dateLabel.text = transaction?.getDateStr()
+        notifLabel.text = transaction?.getNotifications()
+        borrowerName.text = transaction?.getBorrower()
+        lenderName.text = transaction?.getLender()
+        
+        
     }
-    
-
-
-
 
 }

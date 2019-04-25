@@ -13,7 +13,9 @@ import FirebaseDatabase
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var idToView: String?
+    var transToView: Transaction?
+    var borrowerUser: User?
+    var lenderUser: User?
     var transactions = [Transaction]()
     var userUsername: String?
     var userName: String?
@@ -108,7 +110,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                                     let notifs = transProperties["notifs"]
                                     let date = transProperties["return_by"]
                                     var isBorrower = false
-                                    print("username: \(self.userUsername)")
                                     if borrower == self.userUsername {
                                         print("borrower is me")
                                         isBorrower = true
@@ -199,25 +200,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         }
         
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell {
-//            if let url = URL(string: "https://jacquelinezhang.com/Media/innodteamphoto-2059.jpg"){
-//                DispatchQueue.global().async {
-//                    if let data = try? Data( contentsOf:url)
-//                    {
-//                        DispatchQueue.main.async {
-//                           cell.profilePic.image = UIImage( data:data)
-//                        }
-//                    }
-//                }
-//            }
-//
-//            cell.item.text = dummyDataDesc[indexPath.item]
-//            cell.borrowingText.text = dummyDataBorrower[indexPath.item]
-//            cell.timeText.text = dummyDataTime[indexPath.item]
-//
-//            return cell
-//        }
-        
         return UITableViewCell()
     }
     
@@ -228,8 +210,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     /** Handles selection of a row in the TableView. */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let transaction = transactions[indexPath.item]
-        idToView = transaction.getId()
+        self.transToView = transactions[indexPath.item]
         performSegue(withIdentifier: "performDetailsSegue", sender: nil)
     }
     
@@ -250,7 +231,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? DetailsViewController {
-            dest.transactionID = idToView!
+            dest.transaction = transToView!
         }
     }
 

@@ -24,8 +24,11 @@ class Transaction {
     /** Represents the item description. */
     var item: String
     
-    /** Represents the return date and time. */
-    var date: Date?
+    /** Represents the return date and time as a Date object. */
+    var dateObj: Date?
+    
+    /** Represents the return date and time as a String. */
+    var dateStr: String
     
     /** Represents the notification preference. */
     var notifications: String
@@ -36,6 +39,7 @@ class Transaction {
         self.lender = lender
         self.isBorrower = isBorrower
         self.item = item
+        self.dateStr = date
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM yyyy at h:mm a"
@@ -43,7 +47,7 @@ class Transaction {
         dateFormatter.pmSymbol = "PM"
         
         if let date = dateFormatter.date(from: date) {
-            self.date = date
+            self.dateObj = date
         }
         
         self.notifications = notifications
@@ -66,7 +70,6 @@ class Transaction {
     func getItem() -> String {
         return item
     }
-    
  
     func getNotifications() -> String {
         return notifications
@@ -74,6 +77,10 @@ class Transaction {
     
     func getIsBorrower() -> Bool {
         return isBorrower
+    }
+    
+    func getDateStr() -> String {
+        return dateStr
     }
     
 }
