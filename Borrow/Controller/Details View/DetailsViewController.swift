@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseUI
 
 class DetailsViewController: UIViewController {
     
@@ -21,8 +22,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var notifLabel: UILabel!
-    @IBOutlet weak var pictureImg: UILabel!
-    
+    @IBOutlet weak var pictureImg: UIImageView!
+    var image: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,7 +40,32 @@ class DetailsViewController: UIViewController {
         notifLabel.text = transaction?.getNotifications()
         borrowerName.text = transaction?.getBorrower()
         lenderName.text = transaction?.getLender()
+        let id = transaction?.getId()
+        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
+        // Placeholder image
+        let placeholderImage = UIImage(named: "noimg")
+
+        pictureImg.sd_setImage(with: imgRef, placeholderImage: placeholderImage)
+
+        // getImage(id: (transaction?.getId())!)
+        // pictureImg.image = image
         
+    }
+    
+    func getImage(id: String!) {
+        print("what the fuck: \(id ?? "")")
+        // Create a reference to the file you want to download
+        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                print("it worked!!!!!!")
+                self.image = UIImage(data: data!)
+            }
+        }
         
     }
 

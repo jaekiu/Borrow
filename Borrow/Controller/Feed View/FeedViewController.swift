@@ -139,13 +139,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                 let value = snap.value as! String
                                                 partyProperties[key] = value
                                             }
+                                            borrower = partyProperties["name"]
+                                            lender = self.userName
+                                            let transaction = Transaction(id: id, borrower: borrower!, lender: lender!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
+                                            self.transactions.append(transaction)
+                                            self.tableView.reloadData()
                                         }
-                                        borrower = partyProperties["name"]
-                                        lender = self.userName
-                                        let transaction = Transaction(id: id, borrower: borrower!, lender: lender!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
-                                        self.transactions.append(transaction)
-                                        
-                                        self.tableView.reloadData()
                                     }
                                 }
                             }

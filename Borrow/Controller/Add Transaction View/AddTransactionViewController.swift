@@ -13,7 +13,7 @@ import FirebaseDatabase
 
 class AddTransactionViewController: FormViewController {
 
-    
+    var id: String!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -163,6 +163,7 @@ class AddTransactionViewController: FormViewController {
             } else {
                 // Inserts to database
                 let newRef = databaseRef.child("transactions").childByAutoId()
+                self.id = newRef.key
                 newRef.setValue(["lender": lender.lowercased(), "borrower": borrower.lowercased(), "item": item, "return_by": completeDate, "notifs": notif])
                 databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
                 
@@ -175,11 +176,33 @@ class AddTransactionViewController: FormViewController {
                     partyProperties[key] = value
                 }
             databaseRef.child("users").child(partyProperties["uid"]!).updateChildValues(["transactions": [newRef.key]])
-                
+                self.uploadImagePic(img: valuesDictionary["img"] as! UIImage)
                 // Switch to Feed View Controller
                 self.performSegue(withIdentifier: "backToFeed", sender: nil)
             }
         })
+    }
+    
+    func uploadImagePic(img: UIImage){
+        let data = img.jpegData(compressionQuality: 0.8)
+        
+        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
+        imgRef.putData(data!, metadata: nil){ (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type.
+            let size = metadata.size
+            // You can also access to download URL after upload.
+            imgRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+            }
+        }
+        
     }
     
     /** -------- ALERTS --------- */
