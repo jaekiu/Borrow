@@ -179,14 +179,12 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             cell.viewController = self
             cell.item.text = transaction.getItem()
             let isBorrower = transaction.getIsBorrower()
+            cell.transaction = transaction
             if isBorrower == true {
                 cell.borrower.text = "You"
                 cell.borrower.textColor = .black
                 cell.lender.text = transaction.getLender()
-                cell.lender.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)
-//                getImage(id: transaction.getId())
-//                cell.profilePic.image = image
-                
+                cell.lender.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)               
             } else {
                 cell.borrower.text = transaction.getBorrower()
                 cell.borrower.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)

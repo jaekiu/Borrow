@@ -8,13 +8,14 @@
 
 import UIKit
 import FirebaseUI
+import FirebaseDatabase
 
 class DetailsViewController: UIViewController {
     
     
     
     var transaction: Transaction?
-
+    
     @IBOutlet weak var borrowerImg: UIImageView!
     @IBOutlet weak var borrowerName: UILabel!
     @IBOutlet weak var lenderImg: UIImageView!
@@ -60,18 +61,51 @@ class DetailsViewController: UIViewController {
     }
 
     @IBAction func openBorrowerProfile(_ sender: Any) {
-        let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-        self.addChild(popoverVC)
-        popoverVC.view.frame = self.view.bounds
-        self.view.addSubview(popoverVC.view)
-        popoverVC.didMove(toParent: self)
+        let id = transaction?.getBorrowerId()
+        
+        databaseRef.child("users").child(id!).observeSingleEvent(of: .value) { (snapshot) in
+            var properties = [String: String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let key = snap.key
+                if key != "transactions" {
+                    let value = snap.value as! String
+                    properties[key] = value
+                }
+            }
+            let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
+            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            self.addChild(popoverVC)
+            popoverVC.view.frame = self.view.bounds
+            self.view.addSubview(popoverVC.view)
+            popoverVC.didMove(toParent: self)
+            
+        }
     }
     
+    
+    
     @IBAction func openLenderProfile(_ sender: Any) {
-        let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-        self.addChild(popoverVC)
-        popoverVC.view.frame = self.view.bounds
-        self.view.addSubview(popoverVC.view)
-        popoverVC.didMove(toParent: self)
+        let id = transaction?.getLenderId()
+        databaseRef.child("users").child(id!).observeSingleEvent(of: .value) { (snapshot) in
+            var properties = [String: String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let key = snap.key
+                if key != "transactions" {
+                    let value = snap.value as! String
+                    properties[key] = value
+                }
+            }
+            let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
+            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            self.addChild(popoverVC)
+            popoverVC.view.frame = self.view.bounds
+            self.view.addSubview(popoverVC.view)
+            popoverVC.didMove(toParent: self)
+            
+        }
+        
     }
+ 
 }

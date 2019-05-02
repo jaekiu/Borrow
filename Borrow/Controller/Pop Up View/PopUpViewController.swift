@@ -15,6 +15,9 @@ class PopUpViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     
+    var user: User!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,7 +26,13 @@ class PopUpViewController: UIViewController {
         self.showAnimate()
         profilePic.setRounded()
         requestTransButton.setRounded()
-        }
+        nameLabel.text = user.getName()
+        usernameLabel.text = "@\(user.getUsername())"
+        let id = user.getUid()
+        let placeholderImageUser = UIImage(named: "default")
+        let imgRef = storageRef.child("users").child("\(id ?? "").jpg")
+        profilePic.sd_setImage(with: imgRef, placeholderImage: placeholderImageUser)
+    }
     
     @IBAction func closePopUp(_ sender: Any) {
         self.removeAnimate()

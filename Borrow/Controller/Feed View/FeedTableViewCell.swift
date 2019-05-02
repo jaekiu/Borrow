@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class FeedTableViewCell: UITableViewCell {
 
@@ -15,6 +16,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var borrower: UILabel!
     @IBOutlet weak var lender: UILabel!
     @IBOutlet weak var item: UILabel!
+    var transaction: Transaction!
     var viewController : FeedViewController!
     
     override func awakeFromNib() {
@@ -25,12 +27,26 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     @IBAction func openProfile(_ sender: Any) {
-        let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-        viewController.addChild(popoverVC)
-        // popoverVC.view.frame = viewController.view.frame
-        popoverVC.view.frame = viewController.view.bounds
-        viewController.view.addSubview(popoverVC.view)
-        popoverVC.didMove(toParent: viewController)
+        let id = transaction?.getBorrowerId()
+        databaseRef.child("users").child(id!).observeSingleEvent(of: .value) { (snapshot) in
+            var properties = [String: String]()
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let key = snap.key
+                if key != "transactions" {
+                    let value = snap.value as! String
+                    properties[key] = value
+                }
+            }
+            let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
+            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            self.viewController.addChild(popoverVC)
+            popoverVC.view.frame = self.viewController.view.bounds
+            self.viewController.view.addSubview(popoverVC.view)
+            popoverVC.didMove(toParent: self.viewController)
+            
+        }
+    
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
