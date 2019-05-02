@@ -34,22 +34,27 @@ class DetailsViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.tintColor = .white
         
+        borrowerImg.setRounded()
+        lenderImg.setRounded()
         
+        // The actual transaction stuff
         let id = transaction?.getId()
         let placeholderImage = UIImage(named: "noimg")
         let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
         pictureImg.sd_setImage(with: imgRef, placeholderImage: placeholderImage)
-
         
         itemLabel.text = transaction?.getItem()
         dateLabel.text = transaction?.getDateStr()
         notifLabel.text = transaction?.getNotifications()
+        
+        // The user stuff
         borrowerName.text = transaction?.getBorrower()
         lenderName.text = transaction?.getLender()
-        // getImage(id: (transaction?.getId())!)
-        // pictureImg.image = image
-        borrowerImg.setRounded()
-        lenderImg.setRounded()
+        let placeholderImageUser = UIImage(named: "default")
+        let imgRefBorrower = storageRef.child("users").child("\(transaction!.getBorrowerId() ?? "").jpg")
+       borrowerImg.sd_setImage(with: imgRefBorrower, placeholderImage: placeholderImageUser)
+        let imgRefLender = storageRef.child("users").child("\(transaction!.getLenderId() ?? "").jpg")
+        lenderImg.sd_setImage(with: imgRefLender, placeholderImage: placeholderImageUser)
         
         
     }

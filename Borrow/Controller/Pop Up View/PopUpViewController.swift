@@ -12,6 +12,9 @@ class PopUpViewController: UIViewController {
 
     @IBOutlet weak var requestTransButton: UIButton!
     @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -569,8 +569,10 @@
                         <viewLayoutGuide key="safeArea" id="aUX-56-5Re"/>
                     </view>
                     <connections>
+                        <outlet property="nameLabel" destination="Dvx-HV-Z38" id="ng1-Ed-uCe"/>
                         <outlet property="profilePic" destination="f7l-Vr-giB" id="Mel-Xe-nAO"/>
                         <outlet property="requestTransButton" destination="CSS-5d-et1" id="Y9t-vB-5sb"/>
+                        <outlet property="usernameLabel" destination="T0N-Xy-JR9" id="G31-fh-Vl2"/>
                         <segue destination="X2J-vD-zyF" kind="show" identifier="popUpToAddSegue" id="Uo4-WC-SMw"/>
                     </connections>
                 </viewController>
@@ -604,10 +606,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.3921568627" green="0.76862745099999996" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello Jackie!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdh-mf-9eB">
-                                        <rect key="frame" x="17" y="76" width="158" height="42"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdh-mf-9eB">
+                                        <rect key="frame" x="17" y="76" width="83" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -993,8 +995,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="593-in-mdS"/>
-        <segue reference="0Rh-At-Gav"/>
-        <segue reference="kgv-nm-CBr"/>
+        <segue reference="Uo4-WC-SMw"/>
+        <segue reference="xbh-23-Mee"/>
         <segue reference="scu-Fg-aIU"/>
     </inferredMetricsTieBreakers>
 </document>
