@@ -15,7 +15,7 @@ class PopUpViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     
-    var user: User!
+    var userToView: User!
     
     
     override func viewDidLoad() {
@@ -26,9 +26,15 @@ class PopUpViewController: UIViewController {
         self.showAnimate()
         profilePic.setRounded()
         requestTransButton.setRounded()
-        nameLabel.text = user.getName()
-        usernameLabel.text = "@\(user.getUsername())"
-        let id = user.getUid()
+        nameLabel.text = userToView.getName()
+        usernameLabel.text = "@\(userToView.getUsername())"
+        let id = userToView.getUid()
+        if user!.uid == id {
+            requestTransButton.isHidden = true
+        } else {
+            requestTransButton.isHidden = false
+        }
+
         let placeholderImageUser = UIImage(named: "default")
         let imgRef = storageRef.child("users").child("\(id ?? "").jpg")
         profilePic.sd_setImage(with: imgRef, placeholderImage: placeholderImageUser)

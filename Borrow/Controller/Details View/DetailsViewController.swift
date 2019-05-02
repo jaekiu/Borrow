@@ -16,6 +16,7 @@ class DetailsViewController: UIViewController {
     
     var transaction: Transaction?
     
+    @IBOutlet weak var confirmReturnButton: UIButton!
     @IBOutlet weak var borrowerImg: UIImageView!
     @IBOutlet weak var borrowerName: UILabel!
     @IBOutlet weak var lenderImg: UIImageView!
@@ -37,6 +38,13 @@ class DetailsViewController: UIViewController {
         
         borrowerImg.setRounded()
         lenderImg.setRounded()
+        confirmReturnButton.setRounded()
+        
+        if (transaction?.getIsBorrower())! {
+            confirmReturnButton.isHidden = true
+        } else {
+            confirmReturnButton.isHidden = false
+        }
         
         // The actual transaction stuff
         let id = transaction?.getId()
@@ -60,6 +68,11 @@ class DetailsViewController: UIViewController {
         
     }
 
+    
+    @IBAction func confirmReturnClicked(_ sender: Any) {
+        alertCancel()
+    }
+    
     @IBAction func openBorrowerProfile(_ sender: Any) {
         let id = transaction?.getBorrowerId()
         
@@ -74,7 +87,7 @@ class DetailsViewController: UIViewController {
                 }
             }
             let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            popoverVC.userToView = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
             self.addChild(popoverVC)
             popoverVC.view.frame = self.view.bounds
             self.view.addSubview(popoverVC.view)
@@ -98,7 +111,7 @@ class DetailsViewController: UIViewController {
                 }
             }
             let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            popoverVC.userToView = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
             self.addChild(popoverVC)
             popoverVC.view.frame = self.view.bounds
             self.view.addSubview(popoverVC.view)
@@ -106,6 +119,21 @@ class DetailsViewController: UIViewController {
             
         }
         
+    }
+    
+    func alertCancel() {
+        let alertController = UIAlertController(title: "Confirm Return?", message:
+            "Are you sure you want to confirm this return? This transaction will be deleted if you confirm.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            (action: UIAlertAction!) in
+            databaseRef.child("transactions").child((self.transaction?.id)!).removeValue()
+            self.performSegue(withIdentifier: "detailsToFeedSegue", sender: nil)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: {
+            (action: UIAlertAction!) in
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
  
 }

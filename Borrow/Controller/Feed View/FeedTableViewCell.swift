@@ -39,7 +39,7 @@ class FeedTableViewCell: UITableViewCell {
                 }
             }
             let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
-            popoverVC.user = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
+            popoverVC.userToView = User(uid: id!, name: properties["name"]!, username: properties["username"]!)
             self.viewController.addChild(popoverVC)
             popoverVC.view.frame = self.viewController.view.bounds
             self.viewController.view.addSubview(popoverVC.view)
