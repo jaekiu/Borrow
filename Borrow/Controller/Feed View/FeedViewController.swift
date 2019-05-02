@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseAnalytics
 import FirebaseDatabase
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var transToView: Transaction?
     var borrowerUser: User?
@@ -20,6 +20,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var userUsername: String?
     var userName: String?
     var userTransactions = [String]()
+    var image: UIImage?
     
     @IBAction func performAddSegue(_ sender: Any) {
         performSegue(withIdentifier: "performAddTransactionSegue", sender: sender)
@@ -30,6 +31,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var dummyDataTime = ["Overdue by 3 hours", "Overdue by 1 hour"]
     
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,6 +53,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.reloadData()
         
+        addSlideMenuButton()
+        self.navigationItem.leftBarButtonItem?.tintColor = .white
 
     }
     
@@ -171,6 +175,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell") as? FeedTableViewCell {
             let transaction = transactions[indexPath.item]
+            cell.viewController = self
             cell.item.text = transaction.getItem()
             let isBorrower = transaction.getIsBorrower()
             if isBorrower == true {
@@ -178,6 +183,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.borrower.textColor = .black
                 cell.lender.text = transaction.getLender()
                 cell.lender.textColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1)
+//                getImage(id: transaction.getId())
+//                cell.profilePic.image = image
                 
             } else {
                 cell.borrower.text = transaction.getBorrower()
@@ -226,6 +233,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
+    }
+    
+    func getImage(id: String!) {
+        // Create a reference to the file you want to download
+        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                print("it worked!!!!!!")
+                self.image = UIImage(data: data!)
+            }
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

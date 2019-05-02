@@ -66,7 +66,7 @@ class AddTransactionViewController: FormViewController {
             }
             +++ Section("Condition of Item") {
                 $0.tag = "lenderImg"
-                $0.hidden = "$roles != 'Lender'"
+//                $0.hidden = "$roles != 'Lender'"
             }
             <<< ImageRow("img") {
                 $0.title = "Attachment"
@@ -141,46 +141,79 @@ class AddTransactionViewController: FormViewController {
             if username.lowercased() == party?.lowercased() {
                 self.alertBadParty()
                 return
-            } else if role == "Borrower" {
-                borrower = username
-                lender = party!
             } else {
-                lender = username
-                borrower = party!
-                if image == nil {
-                    self.alertBadImg()
-                    return
+                if role == "Borrower" {
+                    borrower = username
+                    lender = party!
+                } else {
+                    lender = username
+                    borrower = party!
+                    if image == nil {
+                        self.alertBadImg()
+                        return
+                    }
                 }
+                databaseRef.child("usernames/\(party!.lowercased())").observeSingleEvent(of: .value, with: { (snapshot) in
+                    if !snapshot.exists(){
+                        self.alertBadParty()
+                        return
+                    } else {
+                        // Inserts to database
+                        let newRef = databaseRef.child("transactions").childByAutoId()
+                        self.id = newRef.key
+                        newRef.setValue(["lender": lender.lowercased(), "borrower": borrower.lowercased(), "item": item, "return_by": completeDate, "notifs": notif])
+                       
+                        databaseRef.child("users").child(user!.uid).observeSingleEvent(of: .value) { (snapshot) in
+                            var allTransactions = [String]()
+                            for child in snapshot.children {
+                                let snap = child as! DataSnapshot
+                                let key = snap.key
+                                if key == "transactions" {
+                                    allTransactions = snap.value as! [String]
+                                }
+                            }
+                            allTransactions.append(newRef.key!)
+                            databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": allTransactions])
+                        }
+                        
+                        // Get uid of other party
+                        var partyProperties = [String: String]()
+                        for child in snapshot.children {
+                            let snap = child as! DataSnapshot
+                            let key = snap.key
+                            let value = snap.value as! String
+                            partyProperties[key] = value
+                        }
+                        databaseRef.child("users").child(user!.uid).observeSingleEvent(of: .value) { (snapshot) in
+                            var allTransactions = [String]()
+                            for child in snapshot.children {
+                                let snap = child as! DataSnapshot
+                                let key = snap.key
+                                if key == "transactions" {
+                                    allTransactions = snap.value as! [String]
+                                }
+                            }
+                            allTransactions.append(newRef.key!)
+                            databaseRef.child("users").child(partyProperties["uid"]!).updateChildValues(["transactions": allTransactions])
+                        }
+//                        databaseRef.child("users").child(partyProperties["uid"]!).updateChildValues(["transactions": [newRef.key]])
+                        if let image = valuesDictionary["img"] as? UIImage {
+                            self.uploadImagePic(img: image)
+                        } else {
+                            self.uploadImagePic(img: UIImage(named: "noimg")!)
+                        }
+                       
+                        // Switch to Feed View Controller
+                        self.performSegue(withIdentifier: "backToFeed", sender: nil)
+                    }
+                })
+                
             }
+            
         }) { (error) in
             print(error.localizedDescription)
         }
         
-        databaseRef.child("usernames/\(party!.lowercased())").observeSingleEvent(of: .value, with: { (snapshot) in
-            if !snapshot.exists(){
-                self.alertBadParty()
-                return
-            } else {
-                // Inserts to database
-                let newRef = databaseRef.child("transactions").childByAutoId()
-                self.id = newRef.key
-                newRef.setValue(["lender": lender.lowercased(), "borrower": borrower.lowercased(), "item": item, "return_by": completeDate, "notifs": notif])
-                databaseRef.child("users").child(user!.uid).updateChildValues(["transactions": [newRef.key]])
-                
-                // Get uid of other party
-                var partyProperties = [String: String]()
-                for child in snapshot.children {
-                    let snap = child as! DataSnapshot
-                    let key = snap.key
-                    let value = snap.value as! String
-                    partyProperties[key] = value
-                }
-            databaseRef.child("users").child(partyProperties["uid"]!).updateChildValues(["transactions": [newRef.key]])
-                self.uploadImagePic(img: valuesDictionary["img"] as! UIImage)
-                // Switch to Feed View Controller
-                self.performSegue(withIdentifier: "backToFeed", sender: nil)
-            }
-        })
     }
     
     func uploadImagePic(img: UIImage){

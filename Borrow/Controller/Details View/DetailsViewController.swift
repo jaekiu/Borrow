@@ -34,39 +34,39 @@ class DetailsViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.tintColor = .white
         
-        // UI related stuff
+        
+        let id = transaction?.getId()
+        let placeholderImage = UIImage(named: "noimg")
+        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
+        pictureImg.sd_setImage(with: imgRef, placeholderImage: placeholderImage)
+
+        
         itemLabel.text = transaction?.getItem()
         dateLabel.text = transaction?.getDateStr()
         notifLabel.text = transaction?.getNotifications()
         borrowerName.text = transaction?.getBorrower()
         lenderName.text = transaction?.getLender()
-        let id = transaction?.getId()
-        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
-        // Placeholder image
-        let placeholderImage = UIImage(named: "noimg")
-
-        pictureImg.sd_setImage(with: imgRef, placeholderImage: placeholderImage)
-
         // getImage(id: (transaction?.getId())!)
         // pictureImg.image = image
+        borrowerImg.setRounded()
+        lenderImg.setRounded()
         
-    }
-    
-    func getImage(id: String!) {
-        print("what the fuck: \(id ?? "")")
-        // Create a reference to the file you want to download
-        let imgRef = storageRef.child("transactions").child("\(id ?? "").jpg")
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                // Uh-oh, an error occurred!
-            } else {
-                print("it worked!!!!!!")
-                self.image = UIImage(data: data!)
-            }
-        }
         
     }
 
+    @IBAction func openBorrowerProfile(_ sender: Any) {
+        let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
+        self.addChild(popoverVC)
+        popoverVC.view.frame = self.view.bounds
+        self.view.addSubview(popoverVC.view)
+        popoverVC.didMove(toParent: self)
+    }
+    
+    @IBAction func openLenderProfile(_ sender: Any) {
+        let popoverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profilePopUp") as! PopUpViewController
+        self.addChild(popoverVC)
+        popoverVC.view.frame = self.view.bounds
+        self.view.addSubview(popoverVC.view)
+        popoverVC.didMove(toParent: self)
+    }
 }

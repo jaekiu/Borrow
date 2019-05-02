@@ -32,9 +32,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         signUpText.addBottomBorder(borderColor: UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1), borderHeight: 3.0)
-        signUpButton.layer.cornerRadius = 18
-        signUpButton.layer.borderWidth = 1
-        signUpButton.layer.borderColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor
+        signUpButton.setRounded()
         
         drawRectangleBg()
         ref = Database.database().reference()
@@ -79,8 +77,7 @@ class SignUpViewController: UIViewController {
                             databaseRef.child("users").child(user.uid).setValue(["name": name, "username": username.lowercased()])
                             // Updates usernames database
                             databaseRef.child("usernames").child(username.lowercased()).setValue(["uid": user.uid, "name": name])
-                            // let childUpdates = [username: true]
-                            // databaseRef.child("usernames").updateChildValues(childUpdates)
+                            self.setDefaultPic(id: user.uid)
                             
                             self.performSegue(withIdentifier: "signUpToFeed", sender: self)
                         } else {
@@ -93,6 +90,28 @@ class SignUpViewController: UIViewController {
         }
     }
 
+    func setDefaultPic(id: String!){
+        let img = UIImage(named: "default")
+        let data = img!.jpegData(compressionQuality: 0.8)
+        
+        let imgRef = storageRef.child("users").child("\(id ?? "").jpg")
+        imgRef.putData(data!, metadata: nil){ (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type.
+            let size = metadata.size
+            // You can also access to download URL after upload.
+            imgRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+            }
+        }
+        
+    }
     
     func alertUsername() {
         let alertController = UIAlertController(title: "Sign Up Failed", message:

@@ -24,9 +24,7 @@ class SignInViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         signInText.addBottomBorder(borderColor: UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1), borderHeight: 3.0)
-        signInButton.layer.cornerRadius = 18
-        signInButton.layer.borderWidth = 1
-        signInButton.layer.borderColor = UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor
+        signInButton.setRounded()
         
         drawRectangleBg()
         

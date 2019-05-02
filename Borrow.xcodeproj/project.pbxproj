@@ -21,7 +21,11 @@
 		8C39B3772267F96B0075666B /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B3762267F96B0075666B /* AddTransactionViewController.swift */; };
 		8C39B37B226824530075666B /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B37A226824530075666B /* DetailsViewController.swift */; };
 		8C39B389226932770075666B /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39B388226932770075666B /* FirebaseUtils.swift */; };
+		8C3D7B60227A5716005A249E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D7B5F227A5716005A249E /* PopUpViewController.swift */; };
 		8C5BBEC9227231E0006613C3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5BBEC8227231E0006613C3 /* User.swift */; };
+		8C82A004227AC99E000AB5EF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82A003227AC99E000AB5EF /* MenuViewController.swift */; };
+		8C82A006227ACAC1000AB5EF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82A005227ACAC1000AB5EF /* BaseViewController.swift */; };
+		8C82A008227ADCD3000AB5EF /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82A007227ADCD3000AB5EF /* EditProfileViewController.swift */; };
 		D4791DBD7393803283C842C9 /* Pods_Borrow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +48,11 @@
 		8C39B3762267F96B0075666B /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
 		8C39B37A226824530075666B /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		8C39B388226932770075666B /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
+		8C3D7B5F227A5716005A249E /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		8C5BBEC8227231E0006613C3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8C82A003227AC99E000AB5EF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		8C82A005227ACAC1000AB5EF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		8C82A007227ADCD3000AB5EF /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		D4885A083A82A522CB6E77EF /* Pods_Borrow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Borrow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,10 +130,14 @@
 		8C39B36E22671C5D0075666B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8C82A002227ABCE2000AB5EF /* Pop Up View */,
 				8C39B37D226850D40075666B /* Details View */,
 				8C39B37C226850BB0075666B /* Add Transaction View */,
 				8C39B3782267F9800075666B /* Login Views */,
 				8C39B36F22671D250075666B /* Feed View */,
+				8C82A003227AC99E000AB5EF /* MenuViewController.swift */,
+				8C82A005227ACAC1000AB5EF /* BaseViewController.swift */,
+				8C82A007227ADCD3000AB5EF /* EditProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -171,6 +183,14 @@
 				8C39B37A226824530075666B /* DetailsViewController.swift */,
 			);
 			path = "Details View";
+			sourceTree = "<group>";
+		};
+		8C82A002227ABCE2000AB5EF /* Pop Up View */ = {
+			isa = PBXGroup;
+			children = (
+				8C3D7B5F227A5716005A249E /* PopUpViewController.swift */,
+			);
+			path = "Pop Up View";
 			sourceTree = "<group>";
 		};
 		C2A531B2B814732337C9B615 /* Pods */ = {
@@ -320,7 +340,11 @@
 				8C39B3752267F5840075666B /* Transaction.swift in Sources */,
 				8C2719B2225ED2610060EA36 /* SignUpViewController.swift in Sources */,
 				8C39B37B226824530075666B /* DetailsViewController.swift in Sources */,
+				8C82A006227ACAC1000AB5EF /* BaseViewController.swift in Sources */,
 				8C2719B0225ED2610060EA36 /* AppDelegate.swift in Sources */,
+				8C3D7B60227A5716005A249E /* PopUpViewController.swift in Sources */,
+				8C82A008227ADCD3000AB5EF /* EditProfileViewController.swift in Sources */,
+				8C82A004227AC99E000AB5EF /* MenuViewController.swift in Sources */,
 				8C2719CA225F17CF0060EA36 /* FeedViewController.swift in Sources */,
 				8C2719C2225F09D40060EA36 /* SignInViewController.swift in Sources */,
 				8C39B37122672EFA0075666B /* FeedTableViewCell.swift in Sources */,
