@@ -52,3 +52,114 @@ extension UIView {
         layer.addSublayer(border)
     }
 }
+
+//func getYear(dateObj: Date!) -> String {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "yyyy"
+//    let year = dateFormatter.string(from: dateObj)
+//    return year
+//}
+//
+//func getMonth(dateObj: Date!) -> String {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "MM"
+//    let month = dateFormatter.string(from: dateObj)
+//    return month
+//}
+//
+//func getDay(dateObj: Date!) -> String {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "dd"
+//    let day = dateFormatter.string(from: dateObj)
+//    return day
+//}
+//
+//func getHour(dateObj: Date!) -> String {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "hh"
+//    let hour = dateFormatter.string(from: dateObj)
+//    return hour
+//}
+
+
+
+func getYear(dateObj: String!) -> Int {
+    let start = dateObj.index(dateObj.startIndex, offsetBy: 7)
+    let end = dateObj.index(dateObj.startIndex, offsetBy: 11)
+    let range = start..<end
+    return Int(String(dateObj[range]))!
+}
+
+func getMonth(dateObj: String!) -> Int {
+    let start = dateObj.index(dateObj.startIndex, offsetBy: 3)
+    let end = dateObj.index(dateObj.startIndex, offsetBy: 6)
+    let range = start..<end
+    let month = String(dateObj[range])
+    switch month {
+    case "Jan":
+        return 1
+    case "Feb":
+        return 2
+    case "Mar":
+        return 3
+    case "Apr":
+        return 4
+    case "May":
+        return 5
+    case "Jun":
+        return 6
+    case "Jul":
+        return 7
+    case "Aug":
+        return 8
+    case "Sep":
+        return 9
+    case "Oct":
+        return 10
+    case "Nov":
+        return 11
+    case "Dec":
+        return 12
+    default:
+        return 0
+    }
+}
+
+func getDay(dateObj: String!) -> Int {
+    let start = dateObj.index(dateObj.startIndex, offsetBy: 0)
+    let end = dateObj.index(dateObj.startIndex, offsetBy: 2)
+    let range = start..<end
+    return Int(String(dateObj[range]))!
+}
+
+func getHour(dateObj: String!) -> Int {
+    return Int(String(dateObj[15]))!
+}
+
+extension String {
+    
+    var length: Int {
+        return count
+    }
+    
+    subscript (i: Int) -> String {
+        return self[i ..< i + 1]
+    }
+    
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, length) ..< length]
+    }
+    
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
+                                            upper: min(length, max(0, r.upperBound))))
+        let start = index(startIndex, offsetBy: range.lowerBound)
+        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
+        return String(self[start ..< end])
+    }
+    
+}

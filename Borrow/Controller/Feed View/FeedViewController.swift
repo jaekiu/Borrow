@@ -21,6 +21,9 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     var userName: String?
     var userTransactions = [String]()
     var image: UIImage?
+    let redColor = UIColor.red
+    let greyColor = UIColor.black.withAlphaComponent(0.5)
+
     
     @IBAction func performAddSegue(_ sender: Any) {
         performSegue(withIdentifier: "performAddTransactionSegue", sender: sender)
@@ -54,7 +57,6 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.tableView.reloadData()
         
         addSlideMenuButton()
-        self.navigationItem.leftBarButtonItem?.tintColor = .white
 
     }
     
@@ -72,7 +74,6 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                             let snap = child as! DataSnapshot
                             let key = snap.key
                             if key == "transactions" {
-                                print("TRANNNNSNNSNSNSACTIONSSSSSS")
                                 let value = snap.value as! NSArray
                                 let filteredTrans = (value as Array).filter {$0 is String}
                                 print(filteredTrans)
@@ -192,7 +193,12 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                 cell.lender.text = "you"
                 cell.lender.textColor = .black
             }
-            cell.timeText.text = "Overdue by 3 hours"
+            cell.timeText.text = transaction.getDateStr()
+            if isOverdue(returnDate: transaction.getDateStr()) {
+                cell.timeText.textColor = redColor
+            } else {
+                cell.timeText.textColor = greyColor
+            }
             if let url = URL(string: "https://jacquelinezhang.com/Media/innodteamphoto-2059.jpg"){
                 DispatchQueue.global().async {
                     if let data = try? Data( contentsOf:url)
@@ -255,6 +261,45 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         if let dest = segue.destination as? DetailsViewController {
             dest.transaction = transToView!
         }
+    }
+    
+    func isOverdue(returnDate: String!) -> Bool {
+        let currDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        timeFormatter.amSymbol = "AM"
+        timeFormatter.pmSymbol = "PM"
+        let completeDate = "\(dateFormatter.string(from: currDate)) at \(timeFormatter.string(from: currDate))"
+        
+        let currYear = getYear(dateObj: completeDate)
+        let returnYear = getYear(dateObj: returnDate)
+        let currMonth = getMonth(dateObj: completeDate)
+        let returnMonth = getMonth(dateObj: returnDate)
+        let currDay = getDay(dateObj: completeDate)
+        let returnDay = getDay(dateObj: returnDate)
+        let currHour = getHour(dateObj: completeDate)
+        let returnHour = getHour(dateObj: returnDate)
+        if currYear > returnYear {
+            return true
+        }
+        if currYear == returnYear {
+            if currMonth > returnMonth {
+                return true
+            }
+            if currMonth == returnMonth {
+                if currDay > returnDay {
+                    return true
+                }
+                if currDay == returnDay {
+                    if currHour > returnHour {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 
 }

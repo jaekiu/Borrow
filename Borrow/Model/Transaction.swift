@@ -83,4 +83,20 @@ class Transaction {
         return dateStr
     }
     
+    func getDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        let dateObj = dateFormatter.date(from: dateStr)
+        return dateObj!
+    }
+    
+    func getTime() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        let dateObj = dateFormatter.date(from: dateStr)
+        return dateObj!
+    }
+    
 }
