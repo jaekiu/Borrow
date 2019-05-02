@@ -130,14 +130,13 @@
 		8C39B36E22671C5D0075666B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8C82A009227AF779000AB5EF /* Misc Views */,
+				8C82A00A227B0127000AB5EF /* Edit Profile View */,
 				8C82A002227ABCE2000AB5EF /* Pop Up View */,
 				8C39B37D226850D40075666B /* Details View */,
 				8C39B37C226850BB0075666B /* Add Transaction View */,
 				8C39B3782267F9800075666B /* Login Views */,
 				8C39B36F22671D250075666B /* Feed View */,
-				8C82A003227AC99E000AB5EF /* MenuViewController.swift */,
-				8C82A005227ACAC1000AB5EF /* BaseViewController.swift */,
-				8C82A007227ADCD3000AB5EF /* EditProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +190,23 @@
 				8C3D7B5F227A5716005A249E /* PopUpViewController.swift */,
 			);
 			path = "Pop Up View";
+			sourceTree = "<group>";
+		};
+		8C82A009227AF779000AB5EF /* Misc Views */ = {
+			isa = PBXGroup;
+			children = (
+				8C82A003227AC99E000AB5EF /* MenuViewController.swift */,
+				8C82A005227ACAC1000AB5EF /* BaseViewController.swift */,
+			);
+			path = "Misc Views";
+			sourceTree = "<group>";
+		};
+		8C82A00A227B0127000AB5EF /* Edit Profile View */ = {
+			isa = PBXGroup;
+			children = (
+				8C82A007227ADCD3000AB5EF /* EditProfileViewController.swift */,
+			);
+			path = "Edit Profile View";
 			sourceTree = "<group>";
 		};
 		C2A531B2B814732337C9B615 /* Pods */ = {

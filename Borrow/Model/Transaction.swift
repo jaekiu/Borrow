@@ -12,11 +12,17 @@ class Transaction {
     /** Represents the transaction id. */
     var id: String
     
-    /** Represents the borrower's username. */
+    /** Represents the borrower's name. */
     var borrower: String
     
-    /** Represents the lender's username. */
+    /** Represents the lender's name. */
     var lender: String
+    
+    /** Represents the borrower's name. */
+    var borrowerId: String
+    
+    /** Represents the lender's name. */
+    var lenderId: String
     
     /** Easily checks to see what role you are. */
     var isBorrower: Bool
@@ -33,10 +39,12 @@ class Transaction {
     /** Represents the notification preference. */
     var notifications: String
     
-    init(id: String, borrower: String, lender: String, isBorrower: Bool, item: String, date: String, notifications: String) {
+    init(id: String, borrower: String, borrowerId: String, lender: String, lenderId: String, isBorrower: Bool, item: String, date: String, notifications: String) {
         self.id = id
         self.borrower = borrower
+        self.borrowerId = borrowerId
         self.lender = lender
+        self.lenderId = lenderId
         self.isBorrower = isBorrower
         self.item = item
         self.dateStr = date
@@ -58,14 +66,25 @@ class Transaction {
     }
     
     func getBorrower() -> String {
-        // should return borrower's name but for now it'll return the username
+        // should return borrower's name
         return borrower
     }
     
     func getLender() -> String {
-        // should return lender's name but for now it'll return the username
+        // should return lender's name
         return lender
     }
+    
+    func getBorrowerId() -> String {
+        // should return borrower's name
+        return borrowerId
+    }
+    
+    func getLenderId() -> String {
+        // should return lender's name
+        return lenderId
+    }
+    
     
     func getItem() -> String {
         return item

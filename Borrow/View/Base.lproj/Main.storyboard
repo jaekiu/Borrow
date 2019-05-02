@@ -962,14 +962,9 @@
                         <viewLayoutGuide key="safeArea" id="wzU-Jb-tkW"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Profile" id="FUE-QP-D7X">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uY5-e9-P3k">
-                            <connections>
-                                <action selector="cancelTransaction:" destination="qhJ-sn-KgZ" id="oit-c8-XNH"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="TsK-LN-Jqj">
                             <connections>
-                                <action selector="saveTransaction:" destination="qhJ-sn-KgZ" id="3Dk-Tn-lNl"/>
+                                <action selector="saveProfileEdits:" destination="qhJ-sn-KgZ" id="XbB-ct-RlI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -999,7 +994,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="593-in-mdS"/>
         <segue reference="0Rh-At-Gav"/>
-        <segue reference="0aw-5X-wwj"/>
+        <segue reference="kgv-nm-CBr"/>
         <segue reference="scu-Fg-aIU"/>
     </inferredMetricsTieBreakers>
 </document>

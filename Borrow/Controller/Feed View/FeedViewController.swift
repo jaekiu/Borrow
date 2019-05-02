@@ -128,7 +128,7 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                                                 partyProperties[key] = value
                                             }
                                             lender = partyProperties["name"]
-                                            let transaction = Transaction(id: id, borrower: borrower!, lender: lender!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
+                                            let transaction = Transaction(id: id, borrower: borrower!, borrowerId: user!.uid, lender: lender!, lenderId: partyProperties["uid"]!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
                                             self.transactions.append(transaction)
                                             print("counting: \(self.transactions.count)")
                                             self.tableView.reloadData()
@@ -146,7 +146,7 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                                             }
                                             borrower = partyProperties["name"]
                                             lender = self.userName
-                                            let transaction = Transaction(id: id, borrower: borrower!, lender: lender!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
+                                            let transaction = Transaction(id: id, borrower: borrower!, borrowerId: partyProperties["uid"]!, lender: lender!, lenderId: user!.uid, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
                                             self.transactions.append(transaction)
                                             self.tableView.reloadData()
                                         }
@@ -199,16 +199,11 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             } else {
                 cell.timeText.textColor = greyColor
             }
-            if let url = URL(string: "https://jacquelinezhang.com/Media/innodteamphoto-2059.jpg"){
-                DispatchQueue.global().async {
-                    if let data = try? Data( contentsOf:url)
-                    {
-                        DispatchQueue.main.async {
-                            cell.profilePic.image = UIImage( data:data)
-                        }
-                    }
-                }
-            }
+            
+            let placeholderImage = UIImage(named: "default")
+            let imgRef = storageRef.child("users").child("\(transaction.getBorrowerId()).jpg")
+            cell.profilePic.sd_setImage(with: imgRef, placeholderImage: placeholderImage)
+            
             return cell
         }
         
@@ -224,21 +219,6 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.transToView = transactions[indexPath.item]
         performSegue(withIdentifier: "performDetailsSegue", sender: nil)
-    }
-    
-    @IBAction func openHamburger(_ sender: Any) {
-        // openMenu()
-        signOut()
-    }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            self.dismiss(animated: true, completion: nil)
-            performSegue(withIdentifier: "performSignOut", sender: self)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
     }
     
     func getImage(id: String!) {
