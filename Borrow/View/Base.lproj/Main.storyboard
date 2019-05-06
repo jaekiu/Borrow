@@ -233,64 +233,68 @@
                                     <constraint firstAttribute="width" constant="15" id="JWP-yW-a3w"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ITEM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsP-wt-V9d">
-                                <rect key="frame" x="47" y="210" width="29" height="16.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ITEM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsP-wt-V9d">
+                                <rect key="frame" x="47" y="210" width="29" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="UH0-dw-Yu7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="item being borrowed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI1-Oe-6mD">
-                                <rect key="frame" x="24" y="232" width="335" height="23.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="item being borrowed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI1-Oe-6mD">
+                                <rect key="frame" x="24" y="230.5" width="335" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Date" translatesAutoresizingMaskIntoConstraints="NO" id="7pp-L7-PMT">
-                                <rect key="frame" x="24" y="270.5" width="15" height="15"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Date" translatesAutoresizingMaskIntoConstraints="NO" id="7pp-L7-PMT">
+                                <rect key="frame" x="24" y="269" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="F39-bF-V14"/>
                                     <constraint firstAttribute="height" constant="15" id="w6R-hH-dhi"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="RETURN DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16B-T3-Qph">
-                                <rect key="frame" x="47" y="270.5" width="118" height="16.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RETURN DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16B-T3-Qph">
+                                <rect key="frame" x="47" y="269" width="118" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="date and time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-wY-Ih0">
-                                <rect key="frame" x="24" y="292.5" width="327" height="23.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date and time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-wY-Ih0">
+                                <rect key="frame" x="24" y="291" width="327" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Notifications" translatesAutoresizingMaskIntoConstraints="NO" id="61O-bc-1yR">
-                                <rect key="frame" x="24" y="331" width="15" height="15"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Notifications" translatesAutoresizingMaskIntoConstraints="NO" id="61O-bc-1yR">
+                                <rect key="frame" x="24" y="329.5" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="JcR-mR-4Oq"/>
                                     <constraint firstAttribute="width" constant="15" id="MrO-7w-iXi"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="NOTIFICATIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAU-R0-4AL">
-                                <rect key="frame" x="47" y="331" width="118" height="16.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTIFICATIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAU-R0-4AL">
+                                <rect key="frame" x="47" y="329.5" width="118" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="daily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3d-4t-fv4">
-                                <rect key="frame" x="24" y="353" width="327" height="23.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="daily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3d-4t-fv4">
+                                <rect key="frame" x="24" y="351.5" width="327" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="noimg" translatesAutoresizingMaskIntoConstraints="NO" id="IOg-te-sYV">
-                                <rect key="frame" x="24" y="414" width="327" height="175"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimg" translatesAutoresizingMaskIntoConstraints="NO" id="IOg-te-sYV">
+                                <rect key="frame" x="24" y="412" width="327" height="177"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="177" id="fhz-bO-4Ij"/>
                                     <constraint firstAttribute="width" constant="327" id="jqP-cs-EMS"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="Up6-hs-aTu">
-                                <rect key="frame" x="24" y="391.5" width="15" height="15"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camera" translatesAutoresizingMaskIntoConstraints="NO" id="Up6-hs-aTu">
+                                <rect key="frame" x="24" y="390" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="f0S-ax-7Tp"/>
                                     <constraint firstAttribute="width" constant="15" id="k2s-Eh-dEm"/>
@@ -302,8 +306,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="PICTURE OF ITEM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tww-Ie-4Uc">
-                                <rect key="frame" x="47" y="391.5" width="118" height="16.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICTURE OF ITEM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tww-Ie-4Uc">
+                                <rect key="frame" x="47" y="390" width="118" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -365,7 +369,6 @@
                             <constraint firstItem="tww-Ie-4Uc" firstAttribute="leading" secondItem="Up6-hs-aTu" secondAttribute="trailing" constant="8" id="mBh-cl-ZMP"/>
                             <constraint firstItem="Fdu-wY-Ih0" firstAttribute="top" secondItem="16B-T3-Qph" secondAttribute="bottom" constant="5.5" id="n8R-Jt-qvS"/>
                             <constraint firstItem="A3d-4t-fv4" firstAttribute="leading" secondItem="S0b-Zl-lmF" secondAttribute="leading" constant="24" id="nmk-y4-aiB"/>
-                            <constraint firstItem="LaF-CX-PYa" firstAttribute="top" secondItem="IOg-te-sYV" secondAttribute="bottom" constant="25" id="pkt-qr-BmU"/>
                             <constraint firstItem="S0b-Zl-lmF" firstAttribute="trailing" secondItem="rAU-R0-4AL" secondAttribute="trailing" constant="210" id="rqQ-wB-MgZ"/>
                             <constraint firstItem="rAU-R0-4AL" firstAttribute="top" secondItem="Fdu-wY-Ih0" secondAttribute="bottom" constant="15" id="swL-Qd-Kek"/>
                             <constraint firstItem="ftp-dQ-Rfc" firstAttribute="centerX" secondItem="S0b-Zl-lmF" secondAttribute="centerX" id="ufk-Kq-jOy"/>

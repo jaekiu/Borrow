@@ -131,6 +131,7 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                                             let transaction = Transaction(id: id, borrower: borrower!, borrowerId: user!.uid, lender: lender!, lenderId: partyProperties["uid"]!, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
                                             self.transactions.append(transaction)
                                             print("counting: \(self.transactions.count)")
+                                            self.transactions.reverse()
                                             self.tableView.reloadData()
                                         }
                                        
@@ -148,6 +149,7 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                                             lender = self.userName
                                             let transaction = Transaction(id: id, borrower: borrower!, borrowerId: partyProperties["uid"]!, lender: lender!, lenderId: user!.uid, isBorrower: isBorrower, item: item!, date: date!, notifications: notifs!)
                                             self.transactions.append(transaction)
+                                            self.transactions.reverse()
                                             self.tableView.reloadData()
                                         }
                                     }
@@ -259,6 +261,9 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         let returnDay = getDay(dateObj: returnDate)
         let currHour = getHour(dateObj: completeDate)
         let returnHour = getHour(dateObj: returnDate)
+        let currAMPM = getAMPM(dateObj: completeDate)
+        let returnAMPM = getAMPM(dateObj: returnDate)
+        
         if currYear > returnYear {
             return true
         }
@@ -271,7 +276,7 @@ class FeedViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                     return true
                 }
                 if currDay == returnDay {
-                    if currHour > returnHour {
+                    if currHour > returnHour && currAMPM == returnAMPM {
                         return true
                     }
                 }

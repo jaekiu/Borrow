@@ -53,35 +53,6 @@ extension UIView {
     }
 }
 
-//func getYear(dateObj: Date!) -> String {
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "yyyy"
-//    let year = dateFormatter.string(from: dateObj)
-//    return year
-//}
-//
-//func getMonth(dateObj: Date!) -> String {
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "MM"
-//    let month = dateFormatter.string(from: dateObj)
-//    return month
-//}
-//
-//func getDay(dateObj: Date!) -> String {
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "dd"
-//    let day = dateFormatter.string(from: dateObj)
-//    return day
-//}
-//
-//func getHour(dateObj: Date!) -> String {
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "hh"
-//    let hour = dateFormatter.string(from: dateObj)
-//    return hour
-//}
-
-
 
 func getYear(dateObj: String!) -> Int {
     let start = dateObj.index(dateObj.startIndex, offsetBy: 7)
@@ -133,7 +104,16 @@ func getDay(dateObj: String!) -> Int {
 }
 
 func getHour(dateObj: String!) -> Int {
-    return Int(String(dateObj[15]))!
+    if dateObj.length == 22 {
+        return Int(String(dateObj[15]))!
+    } else {
+        return Int(String(dateObj[15]))! * 10 + Int(String(dateObj[16]))!
+    }
+    
+}
+
+func getAMPM(dateObj: String!) -> String {
+    return dateObj.substring(fromIndex: 19)
 }
 
 extension String {

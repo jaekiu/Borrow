@@ -53,6 +53,7 @@ class SignInViewController: UIViewController {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 50
             , height: 50))
         let img = renderer.image { ctx in
+            // background rectangle
             ctx.cgContext.setFillColor(UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1).cgColor)
             
             let rectangle = CGRect(x: 0, y: 0, width: 50, height: 50)
@@ -60,6 +61,19 @@ class SignInViewController: UIViewController {
             ctx.cgContext.setLineWidth(0)
             ctx.cgContext.drawPath(using: .fillStroke)
             
+            // ellipse 1
+            ctx.cgContext.setFillColor(UIColor(red: 124/255.0, green: 212/255.0, blue: 240/255.0, alpha: 0.68).cgColor)
+            
+            let ellipseUno = CGRect(x: -20, y: -5, width: 55, height: 65)
+            ctx.cgContext.addEllipse(in: ellipseUno)
+            ctx.cgContext.drawPath(using: .fillStroke)
+            
+            // ellipse 2
+            ctx.cgContext.setFillColor(UIColor(red: 124/255.0, green: 228/255.0, blue: 235/255.0, alpha: 0.29).cgColor)
+            
+            let ellipseDos = CGRect(x: 17, y: -7, width: 80, height: 40)
+            ctx.cgContext.addEllipse(in: ellipseDos)
+            ctx.cgContext.drawPath(using: .fillStroke)
             
         }
         
