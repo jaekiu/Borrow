@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     var ref: DatabaseReference!
     
     @IBAction func signInButton(_ sender: UIButton) {
@@ -33,10 +33,52 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         signUpText.addBottomBorder(borderColor: UIColor(red: 100/255.0, green: 196/255.0, blue: 226/255.0, alpha: 1), borderHeight: 3.0)
         signUpButton.setRounded()
+        self.nameTextField.delegate = self
+        self.emailTextField.delegate = self
+        self.usernameTextField.delegate = self
+        self.passTextField.delegate = self
+        self.confirmPassTextField.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         drawRectangleBg()
         ref = Database.database().reference()
         
+    }
+    
+    /** Dismisses the keyboard upon pressing return. */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == nameTextField {
+            textField.resignFirstResponder()
+            emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
+            textField.resignFirstResponder()
+            usernameTextField.becomeFirstResponder()
+        } else if textField == usernameTextField {
+            textField.resignFirstResponder()
+            passTextField.becomeFirstResponder()
+        } else if textField == passTextField {
+            textField.resignFirstResponder()
+            confirmPassTextField.becomeFirstResponder()
+        } else {
+            self.view.endEditing(true)
+            return false
+        }
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     func drawRectangleBg() {
