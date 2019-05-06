@@ -29,7 +29,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         self.passTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         drawRectangleBg()
         
     }
@@ -44,6 +45,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             return false
         }
         return true
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
